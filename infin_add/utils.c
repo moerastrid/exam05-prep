@@ -6,17 +6,33 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 12:29:52 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 12:41:21 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 14:52:29 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "infin_add.h"
 
+void	ft_bzero(void *str, size_t n)
+{
+	size_t	i = 0;
+	while (i < n) {
+		((char *)str)[i] = '\0';
+		i++;
+	}
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*point = malloc(count * size);
+	if (point == NULL)
+		return (NULL);
+	ft_bzero(point, size * count);
+	return (point);
+}
+
 size_t	ft_strlen(const char *str)
 {
-	size_t	i;
-
-	i = 0;
+	size_t	i = 0;
 	while (str[i] != '\0')
 		i++;
 	return (i);
@@ -24,13 +40,11 @@ size_t	ft_strlen(const char *str)
 
 char	*ft_strdup(const char *str)
 {
-	char	*point;
-	int		i;
-
-	point = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
+	char	* point = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (point == NULL)
 		return (point);
-	i = 0;
+
+	int		i = 0;
 	while (str[i] != '\0')
 	{
 		point[i] = str[i];
