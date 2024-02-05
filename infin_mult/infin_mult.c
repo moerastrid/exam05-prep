@@ -6,32 +6,71 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 16:20:18 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 17:02:27 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 19:29:03 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "infin_mult.h"
+
+void	add(char **result, size_t res_len, size_t location, int number)
+{
+	if (number > 10)
+	{
+		add(result, res_len, location + 1, number / 10);
+		number = number % 10;
+	}
+	
+	int old = (*result)[res_len - location] - '0';
+	int new = number + old;
+	if (new >= 10)
+	{
+		add(result, res_len, location + 1, new / 10);
+		new = new % 10;
+	}
+	(*result)[res_len - location] = new + '0';
+}
 
 void	multiply(char *big, char *small)
 {
 	char	*result = NULL;
 	size_t	big_len = ft_strlen(big);
 	size_t	small_len = ft_strlen(small);
-	size_t	res_len = big_len + small_len - 1;
+	size_t	res_len = big_len + small_len;
 
-	result = ft_calloc(sizeof(char), big_len + small_len);
-
+	int number = 0;
+	result = ft_calloc(sizeof(char), res_len + 1);
 	size_t i = 0;
-	while(i < res_len)
-	{
-
-		
-		
+	while(i < res_len) {
+		result[i] = '0';
 		i++;
 	}
 	result[i] = '\0';
 
-	ft_putstr(result);
+	i = 0;
+	while(i < big_len)
+	{		
+		size_t j = 0;
+		while (j < small_len)
+		{
+			number = (small[j] - '0') * (big[i] - '0');
+
+			size_t location = res_len - (i + j) - 1;
+			#include <stdio.h>
+			printf("i: %ld\tj: %ld\tnumber: %d\tlocation: %ld\n", i, j, number, location);
+
+			add(&result, res_len, location, number);
+			j++;
+		}
+		i++;
+	}
+
+	i = 0;
+	while((result[i]) == '0' || (result[i]) == '\0') {
+		i++;
+	}
+
+	ft_putstr(&(result[i]));
+	free(result);
 }
 
 int main(int argc, char **argv)
@@ -56,10 +95,10 @@ int main(int argc, char **argv)
 
 	multiply(big, small);
 
-	ft_putstr("\nBIG:\t");
-	ft_putstr(big);
-	ft_putstr("\nSMALL:\t");
-	ft_putstr(small);
+	// ft_putstr("\nBIG:\t");
+	// ft_putstr(big);
+	// ft_putstr("\nSMALL:\t");
+	// ft_putstr(small);
 
 	ft_putchar('\n');
 	
