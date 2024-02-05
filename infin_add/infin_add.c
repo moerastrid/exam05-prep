@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 12:23:46 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 12:41:07 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 13:20:23 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	main(int argc, char **argv)
 {
-	bool	negative;
+	bool	subtraction;
 	char	*big;
 	char	*small;
 
@@ -27,10 +27,17 @@ int	main(int argc, char **argv)
 		write(1, "Usage: ./a.out <number> <number>\n", 34);
 		return (0);
 	}
-	negative = parse(argv, &big, &small);
-	printf("big : %s\n", big);
-	printf("small : %s\n", small);
-	printf("negative : %d\n", negative);
+	printf("result :\t");
+	subtraction = parse(argv, &big, &small);
+
+	
+	printf("\n\n  INFO\nbig :\t%s\n", big);
+	printf("small :\t%s\n", small);
+	printf("sum :\t");
+	if (subtraction)
+		printf("subtraction\n");
+	else
+		printf("addition\n");
 
 	// infin_add(big, small, negative);
 	
