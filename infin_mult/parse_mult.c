@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 16:20:11 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 16:49:41 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 19:53:32 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ void	find_sizes(char **big, char **small, char *left, char *right)
 		return (set_sizes(big, left, small, right));
 	if (ft_strlen(right) > ft_strlen(left))
 		return (set_sizes(big, right, small, left));
-	
-	int i = 0;
-	while (left[i] != '\0') {
+
+	int	i = 0;
+	while (left[i] != '\0')
+	{
 		if (left[i] > right[i])
 			return (set_sizes(big, left, small, right));
 		if (right[i] > left[i])
@@ -42,7 +43,7 @@ bool parse(char **argv, char **big, char **small)
 	char	*right = argv[2];
 	bool	neg_left = false;
 	bool	neg_right = false;
-	
+
 	if (left[0] == '-') 
 	{
 		neg_left = true;

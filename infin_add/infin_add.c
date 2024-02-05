@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 12:23:46 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 15:59:52 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 19:48:52 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 void	add_to_prev(char **result, int i)
 {
-	if (i == 0) {
+	if (i == 0) 
+	{
 		ft_putchar('1');
 		return ;
 	}
-	if  ((*result)[i - 1] != '9') {
+	if ((*result)[i - 1] != '9')
+	{
 		(*result)[i - 1] += 1;
-		return;
+		return ;
 	}
 	(*result)[i - 1] = '0';
 	add_to_prev(result, i - 1);
@@ -37,20 +39,22 @@ void	subtract_from_prev(char **result, size_t i)
 	subtract_from_prev(result, i - 1);
 }
 
-void	add(char *big, char *small) {
-	char	*result = NULL;
-
-	result = ft_calloc(sizeof(char), ft_strlen(big) + 1);
+void	add(char *big, char *small)
+{
+	char	*result = ft_calloc(sizeof(char), ft_strlen(big) + 1);
 	size_t	offset = ft_strlen(big) - ft_strlen(small);
 	size_t	i = 0;
 	int		temp = 0;
+
 	while (big[i])
 	{
 		if (i < offset)
 			result[i] = big[i];
-		else {
+		else
+		{
 			temp = (big[i] - '0') + (small[i - offset] - '0');
-			if (temp >= 10) {
+			if (temp >= 10)
+			{
 				temp -= 10;
 				add_to_prev(&result, i);
 			}
@@ -63,20 +67,22 @@ void	add(char *big, char *small) {
 	free(result);
 }
 
-void	subtract(char *big, char *small) {
-	char	*result = NULL;
-
-	result = ft_calloc(sizeof(char), ft_strlen(big) + 1);
+void	subtract(char *big, char *small)
+{
+	char	*result = ft_calloc(sizeof(char), ft_strlen(big) + 1);
 	size_t	offset = ft_strlen(big) - ft_strlen(small);
 	size_t	i = 0;
 	int		temp = 0;
+
 	while (big[i])
 	{
 		if (i < offset)
 			result[i] = big[i];
-		else {
+		else
+		{
 			temp = (big[i] + '0') - (small[i - offset] + '0');
-			if (temp < 0) {
+			if (temp < 0)
+			{
 				temp += 10;
 				subtract_from_prev(&result, i);
 			}
@@ -85,12 +91,11 @@ void	subtract(char *big, char *small) {
 		i++;
 	}
 	result[i] = '\0';
-
 	i = 0;
-	while(result[i] == '0')
+	while (result[i] == '0')
 		i++;
 	ft_putstr(&result[i]);
-	free(result);	
+	free(result);
 }
 
 int	main(int argc, char **argv)
@@ -100,17 +105,13 @@ int	main(int argc, char **argv)
 	char	*small;
 
 	if (argc != 3)
-	{
-		write(1, "Usage: ./a.out <number> <number>\n", 34);
 		return (0);
-	}
 	subtraction = parse(argv, &big, &small);
-	
 	if (subtraction)
 		subtract(big, small);
 	else
 		add(big, small);
-
+	ft_putchar('\n');
 	free(big);
 	free(small);
 	return (0);

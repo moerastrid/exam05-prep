@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse.c                                            :+:    :+:            */
+/*   parse_add.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 12:35:28 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 15:59:34 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 19:52:52 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	parse(char **argv, char **big, char **small)
 {
 	bool	neg_left = false;
 	bool	neg_right = false;
-	if (argv[1][0] == '-')
+	if (argv[1][0] == '-';
 		neg_left = true;
 	if (argv[2][0] == '-')
 		neg_right = true;

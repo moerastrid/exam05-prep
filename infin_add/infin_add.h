@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 12:23:40 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 16:45:59 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 19:51:52 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdlib.h>
-#include "../utils.h"
+# include "../utils.h"
 
 //parse (sets biggest and smallest, returns false:addition true:subtraction)
 int		parse(char **argv, char **big, char **small);

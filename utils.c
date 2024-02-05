@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 12:29:52 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 16:45:43 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 19:53:54 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	ft_bzero(void *str, size_t n)
 {
 	size_t	i = 0;
-	while (i < n) {
+	while (i < n)
+	{
 		((char *)str)[i] = '\0';
 		i++;
 	}
@@ -24,6 +25,7 @@ void	ft_bzero(void *str, size_t n)
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*point = malloc(count * size);
+
 	if (point == NULL)
 		return (NULL);
 	ft_bzero(point, size * count);
@@ -33,6 +35,7 @@ void	*ft_calloc(size_t count, size_t size)
 size_t	ft_strlen(const char *str)
 {
 	size_t	i = 0;
+
 	while (str[i] != '\0')
 		i++;
 	return (i);
