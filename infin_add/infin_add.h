@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/05 12:23:40 by ageels        #+#    #+#                 */
-/*   Updated: 2024/02/05 14:47:54 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/05 16:45:59 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,8 @@
 
 # include <unistd.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
-
-//utils
-void	ft_bzero(void *str, size_t n);
-void	*ft_calloc(size_t count, size_t size);
-size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *str);
-void	ft_putchar(const char c);
-void	ft_putstr(const char *str);
+#include "../utils.h"
 
 //parse (sets biggest and smallest, returns false:addition true:subtraction)
 int		parse(char **argv, char **big, char **small);
