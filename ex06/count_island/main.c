@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/13 13:02:27 by ageels        #+#    #+#                 */
-/*   Updated: 2024/05/13 15:00:28 by ageels        ########   odam.nl         */
+/*   Updated: 2024/05/13 18:33:17 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,44 +55,36 @@ size_t	get_row_count(const char *input, const size_t row_length)
 	while (n > 0)
 	{
 		n = read(fd, &buf, row_length + 1);
+		if (n <= 0)
+			break;
 		count++;
 	}
 	close(fd);
 	return (count);
 }
 
-void	make_map(const char *input, const size_t row_length, const size_t row_count)
+char	**get_map(const char *input, const size_t row_length, const size_t row_count)
 {
-	char	map[row_length + 1][row_count];
+	char	**map;
 	int		fd;
 	int		n;
-	char	buf[1];
+	char	buf[row_length + 1];
+	size_t	i;
 
+	map = malloc((row_count + 1) * sizeof(char *));
 	fd = open(input, O_RDONLY);
 	n = 1;
-	while (n > 0)
-	{
-		n = read(fd, &buf, 1);
-		if (buf[0] == '\n') {
-			buf[0] = '\0';
-		} else {
-			*(char*)map = buf[0];
-		}
-	}
-	close(fd);
-	
-	int i = 0;
-	while (map[i])
-	{
-		int j = 0;
-		while (map[i][j]!= 0 && map[i][j] )
-		{
-			ft_putchar(map[i][j]);
-			j++;
-		}
+	i = 0;
+	while (n > 0) {
+		n = read(fd, &buf, row_length + 1);
+		if (n <= 0)
+			break ;
+		buf[row_length + 1] = '\0';
+		map[i] = ft_strdup(buf);
 		i++;
 	}
-
+	map[i] = NULL;
+	return (map);
 }
 
 int	print_newline_return_zero(void)
@@ -101,11 +93,36 @@ int	print_newline_return_zero(void)
 	return (0);
 }
 
+void	print_map(char **map)
+{
+	size_t	i;
+	
+	i = 0;
+	while (map[i])
+	{
+		ft_putstr(map[i]);
+		i++;
+	}
+}
+
+void	free_map(char **map)
+{
+	size_t	i;
+	
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
 int	main(int argc, char **argv)
 {
 	size_t	row_lenght;
 	size_t	row_count;
-	// char	**map;
+	char	**map;
 
 	if (argc != 2)
 		print_newline_return_zero();
@@ -115,8 +132,13 @@ int	main(int argc, char **argv)
 	row_count = get_row_count(argv[1], row_lenght);
 	if (row_count == 0)
 		print_newline_return_zero();
-	make_map(argv[1], row_lenght, row_count);
+	map = get_map(argv[1], row_lenght, row_count);
+	print_map(map);
+	printf("\n%s\n%ld\n%ld\n", argv[1], row_lenght, row_count);
+
 	
-	printf("%s\n%ld\n%ld\n", argv[1], row_lenght, row_count);
+	// find_isle()
+
+	free_map(map);
 	return (0);
 }

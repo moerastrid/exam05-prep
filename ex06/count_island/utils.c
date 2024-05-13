@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/13 13:02:05 by ageels        #+#    #+#                 */
-/*   Updated: 2024/05/13 15:01:21 by ageels        ########   odam.nl         */
+/*   Updated: 2024/05/13 16:46:03 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,17 @@ size_t	ft_strlen(const char *str) {
 // 	}
 // 	return (pointer);
 // }
+
+char	*ft_strdup(const char *str) {
+	char	*retstr;
+	size_t	i;
+
+	retstr = malloc((ft_strlen(str) + 1) * sizeof(char));
+	i = 0;
+	while (str[i] != '\0') {
+		retstr[i] = str[i];
+		i++;
+	}
+	retstr[i] = str[i];
+	return (retstr);
+}
