@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/13 13:02:05 by ageels        #+#    #+#                 */
-/*   Updated: 2024/05/13 16:46:03 by ageels        ########   odam.nl         */
+/*   Updated: 2024/05/14 14:32:31 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,5 @@ char	*ft_strdup(const char *str) {
 	retstr[i] = str[i];
 	return (retstr);
 }
+
+//gcc -Wall -Werror -Wextra main.c utils.c && valgrind ./a.out example2.txt

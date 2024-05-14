@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/13 13:02:27 by ageels        #+#    #+#                 */
-/*   Updated: 2024/05/14 14:31:02 by ageels        ########   odam.nl         */
+/*   Updated: 2024/05/14 15:17:34 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,49 +121,96 @@ void	free_map(char **map)
 
 
 
-bool	find_isle(char **map, char n, size_t row_length, size_t row_count) {
+// bool	find_isle(char **map, char n, size_t row_length, size_t row_count) {
+// 	size_t	y;
+// 	size_t	x;
+// 	bool	found = false;
+
+// 	y = 0;
+// 	while (map[y] != NULL) {
+// 		x = 0;
+// 		while(map[y][x] != '\0') {
+// 			if (map[y][x] == 'X' && found == false) {
+// 				found = true;
+// 				map[y][x] = n;
+// 			} else if (map[y][x] == 'X' && found == true) {
+// 				if (x != 0) {
+// 					if (map[y][x - 1] == n) {
+// 						map[y][x] = n;
+// 					}
+// 				}
+				
+// 				if (x != row_length - 1) {
+// 					if (map[y][x + 1] == n) {
+// 						map[y][x] = n;
+// 					}
+// 				}
+				
+// 				if (y != 0) {
+// 					if (map[y - 1][x] == n) {
+// 						map[y][x] = n;
+// 					}
+// 				}
+				
+// 				if (y != row_count - 1) {
+// 					if (map[y + 1][x] == n) {
+// 						map[y][x] = n;
+// 					}
+// 				}
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// 	return (found);
+// }
+
+int	the_virus(size_t x, size_t y, size_t row_length, size_t row_count, char **map, char n) {
+	int count = 0;
+
+	if (map[y][x] == 'X')
+	{
+		count+=1;
+		map[y][x] = n;
+		if (x != 0)
+			count += the_virus(x - 1, y, row_length, row_count, map, n);
+		if (x != row_length - 1)
+			count += the_virus(x + 1, y, row_length, row_count, map, n);
+		if (y != 0)
+			count += the_virus(x, y - 1, row_length, row_count, map, n);
+		if (y != row_count - 1)
+			count += the_virus(x, y + 1, row_length, row_count, map, n);
+	}
+	return (count);	
+}
+
+
+int	find_isle(char **map, char n, size_t row_length, size_t row_count) {
 	size_t	y;
 	size_t	x;
-	bool	found = false;
+	int count = 0;
+	int biggest = 0;
+
+	(void)row_count;
+	(void)row_length;
 
 	y = 0;
 	while (map[y] != NULL) {
 		x = 0;
 		while(map[y][x] != '\0') {
-			if (map[y][x] == 'X' && found == false) {
-				found = true;
-				map[y][x] = n;
-			} else if (map[y][x] == 'X' && found == true) {
-				if (x != 0) {
-					if (map[y][x - 1] == n) {
-						map[y][x] = n;
-					}
-				}
-				
-				if (x != row_length - 1) {
-					if (map[y][x + 1] == n) {
-						map[y][x] = n;
-					}
-				}
-				
-				if (y != 0) {
-					if (map[y - 1][x] == n) {
-						map[y][x] = n;
-					}
-				}
-				
-				if (y != row_count - 1) {
-					if (map[y + 1][x] == n) {
-						map[y][x] = n;
-					}
-				}
+			if (map[y][x] == 'X') {
+				count = the_virus(x, y, row_length, row_count, map, n);
+				if (biggest < count)
+					biggest = count;
+				n++;
 			}
 			x++;
 		}
 		y++;
 	}
-	return (found);
+	return biggest;
 }
+
 
 int	main(int argc, char **argv)
 {
@@ -182,13 +229,9 @@ int	main(int argc, char **argv)
 	map = get_map(argv[1], row_lenght, row_count);
 	print_map(map);
 	printf("\nINFO:\n%s\n%ld\n%ld\n\n", argv[1], row_lenght, row_count);
+	
+	printf("\nbiggest: %d\n\n", find_isle(map, '0', row_lenght, row_count));
 
-	char	n = '1';
-
-	while (find_isle(map, n, row_lenght, row_count)) 
-	{
-		n++;
-	}
 	print_map(map);
 
 	free_map(map);
