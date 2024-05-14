@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/13 13:02:27 by ageels        #+#    #+#                 */
-/*   Updated: 2024/05/13 18:33:17 by ageels        ########   odam.nl         */
+/*   Updated: 2024/05/14 14:31:02 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 size_t	get_row_length(const char *input)
 {
@@ -118,6 +119,52 @@ void	free_map(char **map)
 	free(map);
 }
 
+
+
+bool	find_isle(char **map, char n, size_t row_length, size_t row_count) {
+	size_t	y;
+	size_t	x;
+	bool	found = false;
+
+	y = 0;
+	while (map[y] != NULL) {
+		x = 0;
+		while(map[y][x] != '\0') {
+			if (map[y][x] == 'X' && found == false) {
+				found = true;
+				map[y][x] = n;
+			} else if (map[y][x] == 'X' && found == true) {
+				if (x != 0) {
+					if (map[y][x - 1] == n) {
+						map[y][x] = n;
+					}
+				}
+				
+				if (x != row_length - 1) {
+					if (map[y][x + 1] == n) {
+						map[y][x] = n;
+					}
+				}
+				
+				if (y != 0) {
+					if (map[y - 1][x] == n) {
+						map[y][x] = n;
+					}
+				}
+				
+				if (y != row_count - 1) {
+					if (map[y + 1][x] == n) {
+						map[y][x] = n;
+					}
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+	return (found);
+}
+
 int	main(int argc, char **argv)
 {
 	size_t	row_lenght;
@@ -134,10 +181,15 @@ int	main(int argc, char **argv)
 		print_newline_return_zero();
 	map = get_map(argv[1], row_lenght, row_count);
 	print_map(map);
-	printf("\n%s\n%ld\n%ld\n", argv[1], row_lenght, row_count);
+	printf("\nINFO:\n%s\n%ld\n%ld\n\n", argv[1], row_lenght, row_count);
 
-	
-	// find_isle()
+	char	n = '1';
+
+	while (find_isle(map, n, row_lenght, row_count)) 
+	{
+		n++;
+	}
+	print_map(map);
 
 	free_map(map);
 	return (0);
