@@ -6,13 +6,12 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/13 13:02:27 by ageels        #+#    #+#                 */
-/*   Updated: 2024/05/14 15:17:34 by ageels        ########   odam.nl         */
+/*   Updated: 2024/05/14 15:20:55 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "count_island.h"
 #include <stdio.h>
-#include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -96,11 +95,9 @@ int	print_newline_return_zero(void)
 
 void	print_map(char **map)
 {
-	size_t	i;
-	
-	i = 0;
-	while (map[i])
-	{
+	size_t	i = 0;
+
+	while (map[i]) {
 		ft_putstr(map[i]);
 		i++;
 	}
@@ -108,62 +105,14 @@ void	print_map(char **map)
 
 void	free_map(char **map)
 {
-	size_t	i;
-	
-	i = 0;
-	while (map[i])
-	{
+	size_t	i = 0;
+
+	while (map[i]) {
 		free(map[i]);
 		i++;
 	}
 	free(map);
 }
-
-
-
-// bool	find_isle(char **map, char n, size_t row_length, size_t row_count) {
-// 	size_t	y;
-// 	size_t	x;
-// 	bool	found = false;
-
-// 	y = 0;
-// 	while (map[y] != NULL) {
-// 		x = 0;
-// 		while(map[y][x] != '\0') {
-// 			if (map[y][x] == 'X' && found == false) {
-// 				found = true;
-// 				map[y][x] = n;
-// 			} else if (map[y][x] == 'X' && found == true) {
-// 				if (x != 0) {
-// 					if (map[y][x - 1] == n) {
-// 						map[y][x] = n;
-// 					}
-// 				}
-				
-// 				if (x != row_length - 1) {
-// 					if (map[y][x + 1] == n) {
-// 						map[y][x] = n;
-// 					}
-// 				}
-				
-// 				if (y != 0) {
-// 					if (map[y - 1][x] == n) {
-// 						map[y][x] = n;
-// 					}
-// 				}
-				
-// 				if (y != row_count - 1) {
-// 					if (map[y + 1][x] == n) {
-// 						map[y][x] = n;
-// 					}
-// 				}
-// 			}
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	return (found);
-// }
 
 int	the_virus(size_t x, size_t y, size_t row_length, size_t row_count, char **map, char n) {
 	int count = 0;

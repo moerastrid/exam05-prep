@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/13 13:02:05 by ageels        #+#    #+#                 */
-/*   Updated: 2024/05/14 14:32:31 by ageels        ########   odam.nl         */
+/*   Updated: 2024/05/14 15:20:32 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,6 @@ size_t	ft_strlen(const char *str) {
 	return (i);
 }
 
-// void	*ft_calloc(int amount, size_t size)
-// {
-// 	size_t	i;
-// 	void	*pointer;
-
-// 	pointer = malloc(amount * size);
-// 	if (pointer == NULL)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < amount * size)
-// 	{
-// 		*((char *)pointer) = '\0';
-// 		i++;
-// 	}
-// 	return (pointer);
-// }
-
 char	*ft_strdup(const char *str) {
 	char	*retstr;
 	size_t	i;
@@ -65,5 +48,3 @@ char	*ft_strdup(const char *str) {
 	retstr[i] = str[i];
 	return (retstr);
 }
-
-//gcc -Wall -Werror -Wextra main.c utils.c && valgrind ./a.out example2.txt
